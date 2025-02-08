@@ -27,8 +27,6 @@ ansible all -m copy -a "src=./files/testing.file dest=/tmp" -b
 ```bash
 ansible all -m shell -a "ls /tmp | grep test" -b
 ```
-модуль работы с файлами:
-doc: https://docs.ansible.com/ansible/2.8/modules/file_module.html#file-module
 удалить файл
 ```bash
 ansible all -m file -a "path=/tmp/testing.file state=absent"
@@ -72,3 +70,5 @@ ansible-doc -l | grep apt
 Посмотреть информацию о модуле ansible-doc ansible.builtin.apt
 ```bash
 ansible-doc ansible.builtin.apt
+```
+Или можно посмотреть в браузере, напр https://docs.ansible.com/ansible/2.8/modules/file_module.html#file-module
