@@ -3,3 +3,12 @@
 ```bash
 ansible testing -m ping
 ```
+```bash
+ansible all -m shell -a "uptime"
+```
+```bash
+ansible all -m shell -a "free -h"
+```
+```bash
+ansible all -m shell -a "df -Th"
+```
