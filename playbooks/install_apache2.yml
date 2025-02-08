@@ -1,0 +1,11 @@
+
+---
+- name: installing apache2 server
+  hosts: deb-based
+
+  tasks:
+  - name: installing apache2 on deb
+    ansible.builtin.apt: name=apache2 state=latest
+ 
+  - name: start apache2 and add to enabled services
+    service: name=apache2 state=started enabled=yes

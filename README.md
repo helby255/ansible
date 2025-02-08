@@ -67,8 +67,14 @@ ansible all -m service -a "name=apache2 state=started enabled=yes" -b
 ```bash
 ansible-doc -l | grep apt
 ```
+
+## Полезная информация
 Посмотреть информацию о модуле ansible-doc ansible.builtin.apt
 ```bash
 ansible-doc ansible.builtin.apt
 ```
 Или можно посмотреть в браузере, напр https://docs.ansible.com/ansible/2.8/modules/file_module.html#file-module
+Посмотреть hosts со всеми подключенными переменными, группами и т.д.
+```bash
+ansible-inventory --list
+```

@@ -1,0 +1,8 @@
+
+---
+- name: remove apache2 server
+  hosts: deb-based
+
+  tasks:
+  - name: remove apache2 on deb
+    ansible.builtin.apt: name=apache2 state=absent
