@@ -1,0 +1,37 @@
+---
+- name: Testing playbook for variables
+  hosts: all
+  become: yes
+
+  vars:
+    message1: fedya
+    message2: govorit
+    secret: bla-bla
+
+  tasks:
+   - name: print variable
+     debug:
+      var: message1
+
+   - name: print variable with some text
+     debug:
+      msg: "secret is: {{secret}}"
+
+   - name: add full string
+     set_fact: full_text= "{{message1}} {{message2}} ':' {{secret}}"
+
+   - name: printing full string
+     debug:
+      msg: "{{ full_text }}"
+
+   - name: printing variable from setup
+     debug:
+       var: ansible_hostname
+   
+   - name: get variable from command uptime
+     shell: uptime
+     register: uptime_result
+
+   - name: printing new variable from command
+     debug:
+      msg: "{{uptime_result.stdout}}"
