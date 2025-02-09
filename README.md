@@ -23,6 +23,7 @@ ansible all -m shell -a "df -Th"
 передать файл
 ```bash
 ansible all -m copy -a "src=./files/testing.file dest=/tmp" -b
+```
 Проверить наличие файла
 ```bash
 ansible all -m shell -a "ls /tmp | grep test" -b
