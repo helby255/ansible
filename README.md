@@ -1,6 +1,6 @@
 # ansible
 Простейшая конфигурация для работы с 3 тестовыми ВМ.
-##Перед началом:
+## Перед началом:
 Посмотреть hosts файл
 Посмотреть файл конфигурации (ansible.cfg)
 ## Модули
@@ -67,7 +67,10 @@ ansible all -m service -a "name=apache2 state=started enabled=yes" -b
 ```bash
 ansible-doc -l | grep apt
 ```
-
+## Плейбуки
+```bash
+ansible-playbook myplaybook.yml
+```
 ## Полезная информация
 Посмотреть информацию о модуле ansible-doc ansible.builtin.apt
 ```bash
