@@ -1,0 +1,10 @@
+
+---
+- name: deleting all iptables rools
+  hosts: all
+  become: yes
+
+  tasks:
+   - name: delete all iptables rules
+     ansible.builtin.iptables:
+      flush: yes

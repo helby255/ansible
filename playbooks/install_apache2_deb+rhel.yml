@@ -1,0 +1,65 @@
+
+---
+- name: installing apache2 server
+  hosts: all
+  become: yes
+
+  vars:
+   src_file: ../files/simple_web_page/index.html
+   dst_file: /var/www/html
+
+  tasks:
+  - name: check rhel or deb system
+    debug: var=ansible_pkg_mgr
+
+  - name: installing httpd in rhel systems
+    dnf: name=httpd state=latest
+    when: ansible_pkg_mgr == "dnf"
+    notify: add iptables rule for httpd
+
+      #  - name: add iptables rule for httpd
+    #    ansible.builtin.iptables:
+      #      chain: INPUT 
+        #      protocol: tcp 
+        #      destination_port: 80
+        #        ctstate: NEW
+        #      jump: ACCEPT
+        #    when: ansible_pkg_mgr == "dnf"
+  
+  - name: checking installed packages
+    ansible.builtin.package_facts:
+
+  - name: add firewalld rule for 80 port
+    ansible.posix.firewalld:
+      service: http
+      permanent: true
+      state: enabled
+        #    when: "'firewalld' in ansible_facts.package"
+
+  - name: installing apache2 in deb-systems
+    ansible.builtin.apt: name=apache2 state=latest
+    when: ansible_pkg_mgr == "apt"
+
+  - name: copy simple page to servers
+    copy: src={{ src_file }} dest={{dst_file}} mode=0555
+    notify: restarting apache2 to apply changes
+    notify: restarting httpd to apply changes
+
+  - name: start apache2 and add to enabled services
+    service: name=apache2 state=started enabled=yes
+    when: ansible_pkg_mgr == "deb"
+
+  - name: start htppd and add to enabled services
+    service: name=httpd state=started enabled=yes
+    when: ansible_pkg_mgr == "dnf"
+
+  handlers:
+  - name: restarting apache2 to apply changes
+    service: name=apache2 state=restarted
+    when: ansible_pkg_mgr == "deb"
+
+  - name: restarting httpd to apply changes
+    service: name=httpd state=restarted
+    when: ansible_pkg_mgr == "dnf"
+
+
